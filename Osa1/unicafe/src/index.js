@@ -1,13 +1,22 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-/*
-const Button = ({onClick, text}) =>{
-    <button onClick={onClick}>
-    {text}
-  </button>
+const Stats = (props) => {
+
+    const sum = props.g + props.n + props.b
+    const avg = (props.g*1 + props.b *(-1))/sum
+    const pos = props.g/sum * 100
+    return(
+        <div>
+        <div>good {props.g}</div>
+        <div>neutral {props.n}</div>
+        <div>bad {props.b}</div>    
+        <div>all {sum}</div>
+        <div>average {avg}</div>
+        <div>positive {pos}%</div>
+        </div>
+    )
 }
-*/
 
 const App = () => {
   // tallenna napit omaan tilaansa
@@ -34,9 +43,7 @@ const App = () => {
       <button onClick={handleNeutralClick}>neutral</button>
       <button onClick={handleBadClick}>bad</button>
       <h1>statistics</h1>
-      <div>good {good}</div>
-      <div>neutral {neutral}</div>
-      <div>bad {bad}</div>
+      <Stats g = {good} n = {neutral} b = {bad} />
     </div>
   )
 }
