@@ -20,22 +20,26 @@ const Statistics = (props) => {
     const avg = (props.g*1 + props.b *(-1))/sum
     const pos = props.g/sum * 100
     return(
-        <div>
+        <table>
             <Statistic text = "good" value = {props.g}/>
             <Statistic text = "neutral" value = {props.n}/>
             <Statistic text = "bad" value = {props.b}/>    
-        <Statistic text = "all" value = {sum}/>
-        <Statistic text = "average" value = {avg}/>
-        <Statistic text = "positive" value = {pos} mark = "%"/>
-        </div>
+            <Statistic text = "all" value = {sum}/>
+            <Statistic text = "average" value = {avg}/>
+            <Statistic text = "positive" value = {pos} mark = "%"/>
+        </table>
     )
 }
 
 const Statistic = (props) => {
     return(
-        <div>
-            {props.text} {props.value} {props.mark}
-        </div>
+        <tbody>
+            <tr>
+            
+            <th scope = "row">{props.text} </th>
+            <th scope = "row">{props.value} {props.mark}</th>
+            </tr>
+        </tbody>
     )
 }
 
