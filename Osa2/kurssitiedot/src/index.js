@@ -11,6 +11,7 @@ const Course = (props) => {
     <ul>
     <Content parts = {props.course.parts} />
     </ul>
+    <Total parts = {props.course.parts}/>
   </div>
   )
 }
@@ -33,14 +34,15 @@ const Content = ({parts}) => parts.map(part =>
   <Part key = {part.id} part = {part} />
 )
 
-/*
-const Total = (props) => {
-    const [p1,p2,p3] = props.parts
+
+const Total = ({parts}) => {
+    const sum = parts.map(part => part.exercises).
+    reduce( (s,p) => s+p )
     return (
-        <p>Number of exercises {p1.exercises + p2.exercises + p3.exercises}</p>
+        <p>Total of {sum} exercises</p>
     )
 }
-*/
+
 
 const App = () => {
   const course = {
