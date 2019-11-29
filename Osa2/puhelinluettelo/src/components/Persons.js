@@ -3,20 +3,35 @@ import numberServices from './../services/numbers'
 
 const Persons = (props) =>{
     const toShow = props.persons.filter(person => 
-      person.name.includes(props.filter) === true)
+      person.name.toLowerCase().includes(props.filter.toLowerCase()) === true)
     
     const delButton = (event) => {
       const val = parseInt(event.target.getAttribute('value'))
-      console.log(props.persons)
       const obj = props.persons.filter(person => person.id === val)
 
       console.log(obj)
       numberServices.removeNum(obj[0])
-      .then(
+      .then(()=>
         numberServices
         .getAll()
         .then(response => {props.setPersons(response.data)})
+        ,props.setMessage(`Removed ${obj[0].name}`)
+        ,setTimeout(() => {
+          props.setMessage(null)
+        }, 3000)
         )
+        .catch((error) =>{
+          props.setMessage(null)
+          props.setErrorMessage(`Information of ${obj[0].name} has already been removed from server`)
+          setTimeout(() => {
+            props.setErrorMessage(null)
+          }, 3000)
+          numberServices
+          .getAll()
+          .then(response => {props.setPersons(response.data)})
+          }
+        )
+
     
     } 
     
