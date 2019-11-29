@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import PersonForm from './components/Personform'
 import Filter from './components/Filter'
 import Persons from './components/Persons'
+import numberService from './services/numbers'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNum, setNewNum ] = useState('')
   const [ filter, setFilter ] = useState('')
+
   
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
-      })
+    numberService
+    .getAll()
+    .then(response => {setPersons(response.data)})
+    console.log('poo')
   }, [])
   
 
@@ -36,7 +34,7 @@ const App = () => {
       handleNoteChange = {handleNoteChange} persons = {persons} setPersons = {setPersons}
       setNewName = {setNewName} setNewNum = {setNewNum}/>
       <h2>Numbers</h2>
-      <Persons persons = {persons} filter = {filter}/>
+      <Persons persons = {persons} filter = {filter} setPersons={setPersons}/>
 
     </div>
   )

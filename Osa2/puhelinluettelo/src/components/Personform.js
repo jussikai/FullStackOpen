@@ -1,4 +1,5 @@
 import React from 'react'
+import numberServices from './../services/numbers'
 
 const PersonForm = (props) =>{
     const addNumber = (event) => {
@@ -6,13 +7,26 @@ const PersonForm = (props) =>{
       console.log(props.newName)
       console.log(props.persons)
       if (!(props.persons.some(person => person.name === props.newName))){    
-          props.setPersons(props.persons.concat({name: props.newName, number: props.newNum}))
+          numberServices.create({name: props.newName, number: props.newNum})
       }
       else{
-          window.alert(`${props.newName} is already in the phonebook`)
+          if (window.confirm(`${props.newName} is already in the phonebook, replace the old number with a new one?`)){
+            console.log(props.persons.filter(
+              person => person.name ===props.newName)[0]
+              .id)
+            numberServices.update(props.persons.filter(
+              person => person.name ===props.newName)[0]
+              .id, {name: props.newName, 
+                number: props.newNum, 
+                id: props.persons.filter(person => person.name ===props.newName)[0].id}
+                )
+          }
       }
       props.setNewName('')
       props.setNewNum('')
+      numberServices
+      .getAll()
+      .then(response => {props.setPersons(response.data)})
     }
   
     

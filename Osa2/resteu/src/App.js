@@ -22,7 +22,7 @@ const Country = ({country}) =>{
       setweather(response.data)
     }
     )
-  },[])
+  },[country.capital])
 
 
   return(<div>
@@ -52,37 +52,33 @@ const Country = ({country}) =>{
 }
 
 
-/*
-    <p>temperature: {weather.current.temperature}</p>
-    <img 
-      src={weather.weather_icons[0]}
-      alt = ""
-      height = "50"
-      />
-    <p>wind: {weather.current.wind_speed} 
-    kph direction {weather.current.wind_dir}</p>
-    */
-const Data = ({data}) => {
+const Data = (props) => {
+  const showExplicit = (event) => {
+    console.log("clisk", event.target.getAttribute('value'))
+    props.setFilter(event.target.getAttribute('value'))
+    }
+ 
   const Note = ({country}) => 
-  <li key = {country.name}>{country.name} <button>
-    show</button></li>
+  <li key = {country.name}>{country.name} <button value = {country.name} onClick = 
+  {showExplicit}>show</button></li>
 
-  const rows = () => data.map(country => 
+  const rows = () => props.data.map(country => 
     <Note key = {country.name} country = {country}/>)
   
-  if(data.length > 10){
+  if(props.data.length > 10){
     return(
       <div>Too many matches, specify another filter</div>
     )
   }
-  else if(data.length !== 1){
+  else if(props.data.length !== 1){
     return(<div>
       <ul>
         {rows()}
       </ul>
     </div>)
   }
-  return(<div><Country country = {data[0]}/></div>)
+
+  return(<div><Country country = {props.data[0]}/></div>)
 
 
 }
@@ -90,6 +86,9 @@ const Data = ({data}) => {
 function App() {
   const [filter, setFilter] = useState('')
   const [data, setData] = useState([])
+
+  
+  
 
   useEffect(() => {
 
@@ -102,6 +101,7 @@ function App() {
       })
   },[])
 
+
   const handleFilChange = (event) => setFilter(event.target.value)
 
   const toShow = data.filter(country => country.name.toLowerCase()
@@ -113,7 +113,8 @@ function App() {
       onChange = {handleFilChange} 
       value = {filter}/></div>
       </form>
-      <Data data = {toShow} />
+      <Data data = {toShow} 
+      setFilter = {setFilter}/>
     </div>
   );
 }
