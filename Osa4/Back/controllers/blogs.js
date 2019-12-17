@@ -28,5 +28,23 @@ else{
 }
 })
 
+blogsRouter.delete('/:id',async (request, response) => {
+  try{await Blog.findByIdAndRemove(request.params.id)
+  response.status(204).end()}
+  catch(exception){
+    response.status(404).end()
+  }
+})
+
+blogsRouter.put('/:id',async (request, response) => {
+  blog = request.body
+  blog.likes = blog.likes?blog.likes:0
+  try{updated = await Blog.findByIdAndUpdate(request.params.id,blog,{new:true})
+  response.json(updated.toJSON())}
+  catch(exception){
+    response.status(404).end()
+  }
+})
+
 
 module.exports = blogsRouter
