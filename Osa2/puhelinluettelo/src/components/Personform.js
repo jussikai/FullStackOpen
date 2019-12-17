@@ -8,12 +8,23 @@ const PersonForm = (props) =>{
           numberServices.create({name: props.newName, number: props.newNum}).then(()=>
             numberServices
             .getAll()
-            .then(response => {props.setPersons(response.data)})
-          )
-          props.setMessage(`Added ${props.newName}`)
-          setTimeout(() => {
+            .then(response => {props.setPersons(response.data)}
+            ,props.setMessage(`Added ${props.newName}`)
+            ,setTimeout(() => {
+              props.setMessage(null)
+            }, 3000))
+            )            
+            .catch(error=>{                  
             props.setMessage(null)
-          }, 3000)
+            console.log(error.response.data)
+            props.setErrorMessage(error.response.data.error)
+            setTimeout(() => {
+              props.setErrorMessage(null)
+            }, 3000)
+            numberServices
+            .getAll()
+            .then(response => {props.setPersons(response.data)})})
+
       }
       else{
           if (window.confirm(`${props.newName} is already in the phonebook, replace the old number with a new one?`)){

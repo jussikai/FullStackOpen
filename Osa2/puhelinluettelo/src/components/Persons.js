@@ -6,9 +6,9 @@ const Persons = (props) =>{
       person.name.toLowerCase().includes(props.filter.toLowerCase()) === true)
     
     const delButton = (event) => {
-      const val = parseInt(event.target.getAttribute('value'))
+      const val = event.target.getAttribute('value')
       const obj = props.persons.filter(person => person.id === val)
-
+      console.log(val)
       console.log(obj)
       numberServices.removeNum(obj[0])
       .then(()=>
