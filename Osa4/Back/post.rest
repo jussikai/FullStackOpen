@@ -1,9 +1,11 @@
 POST http://localhost:3003/api/blogs HTTP/1.1
 content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imtha2thcHlsbHkzIiwiaWQiOiI1ZGZhNzVjMWEzMWUxMDNlZTRhOGVhODQiLCJpYXQiOjE1NzY2OTU1NzZ9.9qEBbbOzImjwKh2-jkgVFnxDB-Dl_aip1reVH56J6TQ
+
 
 {
-    "title": "sdfgj",
-    "author": "Pdsggy",
-    "url": "adsdsdgsdsdfg",
-    "likes": "7"
-}
+  "title":"Go To Statement Considered Harmful",
+  "author":"Edsger W. Dijkstra",
+  "url":"http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
+  "likes":"8"
+  }
