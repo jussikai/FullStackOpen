@@ -16,7 +16,7 @@ blogsRouter.get('/', async (request, response,next) => {
       next(exception)
     }
   })
-  
+
 blogsRouter.post('/', async (request, response,next) => {
   const blog = new Blog(request.body)
 
@@ -45,6 +45,7 @@ blogsRouter.post('/', async (request, response,next) => {
       }
   }
 })
+
 
 blogsRouter.delete('/:id',async (request, response,next) => {
   try{
