@@ -11,7 +11,7 @@ const getId = () => (100000 * Math.random()).toFixed(0)
 
 export const createAnecdote = (anecdote)=>({type:'ADD', anecdote:anecdote})
 
-export const voteAnecdote = (id) => ({type:'VOTE',id:id})
+export const voteAnecdote = (id,anecdotes) => ({type:'VOTE',id:id,data:anecdotes})
 
 
 const asObject = (anecdote) => {

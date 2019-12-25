@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import {createAnecdote} from '../reducers/anecdoteReducer'
 
 
@@ -7,7 +8,7 @@ const AnecdoteForm = (props) => {
     const addAnecdote = (event) =>{
         event.preventDefault()
         console.log(event.target.anecdote.value)
-        props.store.dispatch(createAnecdote(event.target.anecdote.value))
+        props.createAnecdote(event.target.anecdote.value)
         }
     return(
         <div>
@@ -20,4 +21,20 @@ const AnecdoteForm = (props) => {
     )
 }
 
-export default AnecdoteForm
+const mapStateToProps = (state) => {
+    // joskus on hyödyllistä tulostaa mapStateToProps:ista...
+    console.log(state)
+    return {
+      anecdotes: state.anecdotes,
+      filter: state.filter
+    }
+  }
+  
+const mapDispatchToProps = {
+    createAnecdote,
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+    )(AnecdoteForm)
