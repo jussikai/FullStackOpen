@@ -73,6 +73,7 @@ blogsRouter.put('/:id',async (request, response,next) => {
   blog = request.body
   blog.likes = blog.likes?blog.likes:0
   try{updated = await Blog.findByIdAndUpdate(request.params.id,blog,{new:true})
+  .populate('blogs').populate('user',{username:1,name:1})
   response.json(updated.toJSON())}
   catch(exception){
     next(exception)
