@@ -3,6 +3,7 @@ import './App.css';
 import {useEffect, useState} from 'react';
 import blogService from './services/blogs.js';
 import loginService from './services/login.js';
+import BlogForm from './components/Blogform'
 
 const loginForm = (props) =>(
   <div>
@@ -31,7 +32,7 @@ const loginForm = (props) =>(
 </div>
 )
 
-const showProfile = (user,blogs,handleLogout) =>{
+const showProfile = (user,blogs,handleLogout, setBlogs, setNotification) =>{
   const Blog = (blog) =>(
     <li key={blog.blog._id}>{blog.blog.title} {blog.blog.author}</li>
   )
@@ -46,8 +47,12 @@ const showProfile = (user,blogs,handleLogout) =>{
   <div>
   <h1>blogs</h1>
   <p>{user.name?user.name:user.username} logged in <button onClick={handleLogout}>logout</button></p>
-  {userblogs?<ul>{userblogs.map(blog => <Blog blog={blog}/>)}</ul>:null}
+  {userblogs?<ul>{userblogs.map(blog => <Blog key={blog.name} blog={blog}/>)}</ul>:null}
+  <h1>create new</h1>
+  <BlogForm user = {user} blogs = {blogs} setBlogs = {setBlogs}
+  setNotification = {setNotification} />
   </div>
+  
 )}
 
 
@@ -56,6 +61,7 @@ function App() {
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('') 
   const [user, setUser] = useState(null)
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     blogService
@@ -90,6 +96,9 @@ function App() {
       setPassword('')
 
     } catch (exception) {
+      setNotification("wrong username or password")
+      setTimeout(()=>setNotification(null),3000)
+
 
     }
   }
@@ -103,9 +112,10 @@ function App() {
 
   return (
     <div className="App">
+      {notification?<message>{notification}</message>:null}
       {user === null ?
       loginForm(loginVars) :
-      showProfile(user,blogs,handleLogout)
+      showProfile(user,blogs,handleLogout,setBlogs,setNotification)
     }
 
     </div>
