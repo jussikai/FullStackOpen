@@ -16,7 +16,7 @@ blogsRouter.get('/', async (request, response,next) => {
       next(exception)
     }
   })
-  
+
 blogsRouter.post('/', async (request, response,next) => {
   const blog = new Blog(request.body)
 
@@ -46,6 +46,7 @@ blogsRouter.post('/', async (request, response,next) => {
   }
 })
 
+
 blogsRouter.delete('/:id',async (request, response,next) => {
   try{
     const blog = await Blog.findById(request.params.id)
@@ -72,6 +73,7 @@ blogsRouter.put('/:id',async (request, response,next) => {
   blog = request.body
   blog.likes = blog.likes?blog.likes:0
   try{updated = await Blog.findByIdAndUpdate(request.params.id,blog,{new:true})
+  .populate('blogs').populate('user',{username:1,name:1})
   response.json(updated.toJSON())}
   catch(exception){
     next(exception)
