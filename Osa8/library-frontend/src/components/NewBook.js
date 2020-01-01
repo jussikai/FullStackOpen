@@ -24,7 +24,7 @@ const NewBook = (props) => {
       genres: $genres
     ){
       title
-      author
+      author{name}
       published
       genres
     }

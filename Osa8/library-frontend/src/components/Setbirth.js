@@ -6,7 +6,6 @@ import {ALL_AUTHORS,authors} from './Authors'
 const SetBirth = (props) => {
   const [name, setName] = useState('')
   const [born, setBorn] = useState('')
-  console.log(authors)
   useEffect(()=>{setTimeout(()=>setBorn(0),100)},[])
   if (!props.show) {
     return null
@@ -31,6 +30,7 @@ const SetBirth = (props) => {
       e.preventDefault()
   
       console.log('adit author...')
+      console.log(name)
       await editAuthor({variables:{name,setBornTo:parseInt(born)}})
       setName('')
       setBorn('')

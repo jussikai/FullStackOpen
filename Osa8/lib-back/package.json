@@ -12,12 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.9.15",
-    "dotenv": "^8.2.0",
     "graphql": "^14.5.8",
     "mongoose": "^5.8.3",
     "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.2"
   }
 }
