@@ -2,7 +2,7 @@ import BlogForm from './Blogform'
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Table , Button} from 'semantic-ui-react'
+import { Table , Button, Icon} from 'semantic-ui-react'
 
 
 const Bloglist = (props) => {
@@ -32,9 +32,14 @@ const Bloglist = (props) => {
         <Table.Body>
           {userblogs.map(blog => 
             <Table.Row key={blog.id}>
+              <Table.Cell>
               <Link to={`/blogs/${blog.id}`}>
                 {blog.title}
               </Link>
+              </Table.Cell>
+              <Table.Cell>
+                <Icon name='angle up'/>{blog.likes} likes
+              </Table.Cell>
             </Table.Row>)}
         </Table.Body>
       </Table>

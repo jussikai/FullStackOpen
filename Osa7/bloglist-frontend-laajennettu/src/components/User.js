@@ -17,7 +17,7 @@ const User = (props) =>{
       <Table striped>
         <Table.Body>
           {user.blogs.map((blog)=>
-            <Table.Row key={blog.id}>{blog.title}</Table.Row>
+            <Table.Row key={blog.id}><Table.Cell>{blog.title}</Table.Cell></Table.Row>
           )}
         </Table.Body>
       </Table>
